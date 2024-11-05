@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://api.l-8.cn/upload/1/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>https://file.ynwomi.cn</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 480px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="file"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="button"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        #phpResponse {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="uploadForm">
+        <div class="form-group">
+            <label for="fileToUpload">选择你要上传的文件:</label>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+        </div>
+        <div class="form-group">
+            <input type="button" value="点我上传" onclick="uploadFile()">
+        </div>
+        <div class="form-group">
+            <label for="phpResponse">结果显示:</label>
+            <input type="text" id="phpResponse" readonly="">
+        </div>
+    </form>
+
+    <script>
+        function uploadFile() {
+            var formData = new FormData(document.getElementById('uploadForm'));
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('phpResponse').value = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('phpResponse').value = '文件上传出错。';
+            });
+        }
+    </script>
+
+</body></html>
